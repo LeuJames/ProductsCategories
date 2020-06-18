@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = @Model.Name;
+}
+
+@model Product;
+
+<div class="jumbotron text-center">
+  <h1>@Model.Name</h1>
+  <div class="row">
+    <div class="col-sm">
+      <h1 class="display-5">Categories</h1>
+      <ul>
+        @foreach (Association a in @Model.AssociatedCategories)
+        {
+          <li><a href="/categories/@a.Category.CategoryId">@a.Category.Name</a></li>
+        }
+      </ul>
+    </div>
+    <div class="col-sm">
+          <form action="/products/@Model.ProductId/add" method="post" class="form-group">
+          <h1 class="display-5">Add Category</h1>
+          <Select name = "categoryId">
+            @foreach (Category c in @ViewBag.Categories)
+            {
+                <option value="@c.CategoryId">@c.Name</option>
+            }
+          </Select>
+          <input value="Add" type="submit">    
+      </form>
+    </div>
+  </div>
+</div>
